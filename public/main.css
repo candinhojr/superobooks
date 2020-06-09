@@ -1,0 +1,38 @@
+:root {
+    /* definindo variáveis para usar em todo o sistema */
+    --title-color: #3B3934;
+    --primary-color: #34cb79;
+    --supero-color: #db7035;
+}
+
+* {
+    /* removendo as mergens e espaçamentos padrões */
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    font-family: Roboto, sans-serif;
+}
+
+body {
+    background: #f0f0f5;
+    -webkit-font-smoothing: antialiased;
+}
+
+a {
+    text-decoration: none;
+    color: var(--supero-color);
+    /* alterando o padrão de caixa para considerar as bordas também */
+    box-sizing: border-box;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: Ubuntu, sans-serif;
+    color: var(--title-color);
+}

@@ -1,0 +1,39 @@
+{
+  "name": "superobooks",
+  "version": "1.0.0",
+  "description": "Front End Challenge for Supero TI",
+  "private": true,
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/candinhojr/superobooks.git"
+  },
+  "author": {
+    "name": "Candinho Luiz Dalla Brida Junior - @candinhojr",
+    "email": "candinholuiz@gmail.com",
+    "url": "https://candinhojr.github.io/"
+  },
+  "license": "MIT",
+  "scripts": {
+    "start": "react-scripts start",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-router-dom": "^5.2.0",
+    "react-scripts": "^3.4.1"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}
