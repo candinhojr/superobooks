@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react';
 import './Home.css';
 
 import ApiService from '../../Service/ApiService';
+import BooksTable from '../../Components/BooksTable/BooksTable';
 
 class Home extends Component {
 
@@ -35,10 +36,18 @@ class Home extends Component {
 
   render() {
 
+    const fields = [
+      { title: 'Livro', data: 'titulo' },
+      { title: 'Autor', data: 'autor' },
+      { title: 'Editora', data: 'editora' },
+      { title: 'Ano', data: 'ano' },
+    ];
+
     return (
       <Fragment>
         <div className="Home">
           <h1>Superobooks</h1>
+          <BooksTable fields={fields} data={this.state.items} details={this.details} />
         </div>
       </Fragment>
     );

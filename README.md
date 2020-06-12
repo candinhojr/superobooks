@@ -23,7 +23,7 @@ height)
 
 ## :memo: Functionalities
 - [ ] Search books by title, author or ISBN;
-- [ ] List books (title, ISBN, author, publisher, year);
+- [x] List books (title, ISBN, author, publisher, year);
 - [ ] Present quantities of records found;
 - [ ] Paging the search result;
 - [ ] Filter books by period (year);
