@@ -3,6 +3,7 @@ import './Home.css';
 
 import ApiService from '../../Service/ApiService';
 import BooksTable from '../../Components/BooksTable/BooksTable';
+import Header from '../../Components/Header/Header';
 
 class Home extends Component {
 
@@ -45,11 +46,9 @@ class Home extends Component {
 
     return (
       <Fragment>
-        <div id="page-home">
-          <div className="content">
-            <h1>Superobooks</h1>
-            <BooksTable className="Table" columns={columns} data={this.state.items} details={this.details} />
-          </div>
+        <Header />
+        <div className="main">
+          <BooksTable className="Table" columns={columns} data={this.state.items} details={this.details} />
         </div>
       </Fragment>
     );

@@ -4,11 +4,9 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 
+import Search from '../Search/Search';
+
 const useStyles = makeStyles((theme) => ({
-    main: {
-        textAlign: 'center',
-        margin: '1.5em auto',
-    },
     root: {
         flexGrow: 1,
     },
@@ -21,26 +19,19 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function NotFound() {
+export default function Header() {
     const classes = useStyles();
 
     return (
-        <>
         <div className={classes.root}>
             <AppBar position="static">
                 <Toolbar>
                     <Typography variant="h3" className={classes.title}>
                         Supero
                     </Typography>
+                    <Search/>
                 </Toolbar>
             </AppBar>
         </div>
-        <div className={classes.main}>
-            <h1>Página não encontrada</h1>
-            <a href="/">
-                Voltar para a página inicial
-            </a>
-        </div>
-        </>
     );
 }

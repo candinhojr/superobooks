@@ -1,10 +1,10 @@
 
-# <center> :orange_book: Superobooks </center>
-<center>
+# <center align="center"> :orange_book: Superobooks </center>
+<center align="center">
 <a href="#mag_right-books-book-search-challenge">Challenge</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
 <a href="#memo-functionalities">Functionalities</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
 <a href="#round_pushpin-available-scripts">Scripts</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp; 
-<a href="#memo-licença">Licença</a>
+<a href="#memo-licence">License</a>
 </center>
 
 <p align="center">
@@ -43,5 +43,5 @@ In the project directory, you can run:
 Runs the app in the development mode.
 Open http://localhost:3000 to view it in the browser.
 
-## :memo: Licença
-Esse projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE.md) para mais detalhes.
+## :memo: License
+This project is under the MIT license. See the file [LICENSE](LICENSE.md) for more details.
