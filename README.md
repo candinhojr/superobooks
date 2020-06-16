@@ -3,8 +3,14 @@
 <center>
 <a href="#mag_right-books-book-search-challenge">Challenge</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
 <a href="#memo-functionalities">Functionalities</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-<a href="#round_pushpin-available-scripts">Scripts</a>  
+<a href="#round_pushpin-available-scripts">Scripts</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp; 
+<a href="#memo-licença">Licença</a>
 </center>
+
+<p align="center">
+  <img alt="License" src="https://img.shields.io/static/v1?label=license&message=MIT&color=7159c1&labelColor=000000">
+</p>
+
 
 
 ## :mag_right::books: Book Search Challenge
@@ -25,7 +31,7 @@ height)
 - [ ] Search books by title, author or ISBN;
 - [x] List books (title, ISBN, author, publisher, year);
 - [ ] Present quantities of records found;
-- [ ] Paging the search result;
+- [x] Paging the search result;
 - [ ] Filter books by period (year);
 - [ ] View details of the book (show all attributes);
 
@@ -33,5 +39,9 @@ height)
 
 In the project directory, you can run:
 **`yarn start`**
+
 Runs the app in the development mode.
 Open http://localhost:3000 to view it in the browser.
+
+## :memo: Licença
+Esse projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE.md) para mais detalhes.

@@ -36,18 +36,20 @@ class Home extends Component {
 
   render() {
 
-    const fields = [
-      { title: 'Livro', data: 'titulo' },
-      { title: 'Autor', data: 'autor' },
-      { title: 'Editora', data: 'editora' },
-      { title: 'Ano', data: 'ano' },
+    const columns = [
+      { id: 'titulo', label: 'Livro' },
+      { id: 'autor', label: 'Autor' },
+      { id: 'editora', label: 'Editora' },
+      { id: 'ano', label: 'Ano', align: 'right' },
     ];
 
     return (
       <Fragment>
-        <div className="Home">
-          <h1>Superobooks</h1>
-          <BooksTable fields={fields} data={this.state.items} details={this.details} />
+        <div id="page-home">
+          <div className="content">
+            <h1>Superobooks</h1>
+            <BooksTable className="Table" columns={columns} data={this.state.items} details={this.details} />
+          </div>
         </div>
       </Fragment>
     );
