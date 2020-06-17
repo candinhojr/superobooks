@@ -1,20 +1,18 @@
-import React, { Component, Fragment } from 'react';
-import './Home.css';
+import React, { Component, Fragment } from 'react'
+import './Home.css'
 
-import ApiService from '../../Service/ApiService';
-import BooksTable from '../../Components/BooksTable/BooksTable';
-import Header from '../../Components/Header/Header';
+import ApiService from '../../Service/ApiService'
+import BooksTable from '../../Components/BooksTable'
+import Header from '../../Components/Header'
 
 class Home extends Component {
-
   constructor(props) {
-
-    super(props);
+    super(props)
 
     this.state = {
       items: [],
-      inputSearchValue: '',
-    };
+      inputSearchValue: ''
+    }
   }
 
   bookSearchOnChange = input => {
@@ -23,7 +21,7 @@ class Home extends Component {
       .then(res => {
         if (res) this.setState({ items: [...res.items] })
       })
-      .catch(error => console.log(`Erro na comunicação com a API ao tentar pesquisar os livros - log(${error})`));
+      .catch(error => console.log(`Erro na comunicação com a API ao tentar pesquisar os livros - log(${error})`))
   }
 
   details = id => {
@@ -33,26 +31,24 @@ class Home extends Component {
           alert(JSON.stringify(res))
         }
       })
-      .catch(error => console.log(`Erro na comunicação com a API ao tentar listar o livro - log(${error})`));
+      .catch(error => console.log(`Erro na comunicação com a API ao tentar listar o livro - log(${error})`))
   }
 
   componentDidMount() {
-
     ApiService.ListBooks()
       .then(res => {
         if (res) this.setState({ items: [...this.state.items, ...res.items] })
       })
-      .catch(error => console.log(`Erro na comunicação com a API ao tentar listar os livros - log(${error})`));
+      .catch(error => console.log(`Erro na comunicação com a API ao tentar listar os livros - log(${error})`))
   }
 
   render() {
-
     const columns = [
       { id: 'titulo', label: 'Livro' },
       { id: 'autor', label: 'Autor' },
       { id: 'editora', label: 'Editora' },
-      { id: 'ano', label: 'Ano', align: 'right' },
-    ];
+      { id: 'ano', label: 'Ano', align: 'right' }
+    ]
 
     return (
       <Fragment>
@@ -61,8 +57,8 @@ class Home extends Component {
           <BooksTable className="Table" columns={columns} data={this.state.items} details={this.details} />
         </div>
       </Fragment>
-    );
-  };
+    )
+  }
 }
 
-export default Home;
+export default Home

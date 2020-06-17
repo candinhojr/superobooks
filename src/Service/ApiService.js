@@ -6,8 +6,8 @@ const consumesApi = (parameter = '', method = 'GET', body) => {
         headers: { 'content-type': 'application/json' },
         body
     })
-    .then(res => ApiService.HandleErrors(res))
-    .then(res => res.json())
+        .then(res => ApiService.HandleErrors(res))
+        .then(res => res.json())
 }
 
 const ApiService = {

@@ -1,4 +1,3 @@
-
 # <p align="center"> :orange_book: Superobooks </p>
 
 <p align="center">
@@ -12,12 +11,11 @@
   <img alt="License" src="https://img.shields.io/static/v1?label=license&message=MIT&color=7159c1&labelColor=000000">
 </p>
 
-
-
 ## :mag_right::books: Book Search Challenge
 
 You must build a book search engine.
 Books have the following attributes:
+
 - Title
 - ISBN (13 numbers)
 - Author
@@ -25,10 +23,10 @@ Books have the following attributes:
 - Year
 - Language
 - Weight in g
-- Dimensions in cm (length, width,
-height)
+- Dimensions in cm (length, width, height)
 
 ## :memo: Functionalities
+
 - [x] Search books by title, author or ISBN;
 - [x] List books (title, ISBN, author, publisher, year);
 - [ ] Present quantities of records found;
@@ -45,4 +43,5 @@ Runs the app in the development mode.
 Open http://localhost:3000 to view it in the browser.
 
 ## :memo: License
+
 This project is under the MIT license. See the file [LICENSE](LICENSE.md) for more details.
