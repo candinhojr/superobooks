@@ -1,11 +1,12 @@
 
-# <center align="center"> :orange_book: Superobooks </center>
-<center align="center">
+# <p align="center"> :orange_book: Superobooks </p>
+
+<p align="center">
 <a href="#mag_right-books-book-search-challenge">Challenge</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
 <a href="#memo-functionalities">Functionalities</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
 <a href="#round_pushpin-available-scripts">Scripts</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp; 
 <a href="#memo-licence">License</a>
-</center>
+</p>
 
 <p align="center">
   <img alt="License" src="https://img.shields.io/static/v1?label=license&message=MIT&color=7159c1&labelColor=000000">
@@ -28,7 +29,7 @@ Books have the following attributes:
 height)
 
 ## :memo: Functionalities
-- [ ] Search books by title, author or ISBN;
+- [x] Search books by title, author or ISBN;
 - [x] List books (title, ISBN, author, publisher, year);
 - [ ] Present quantities of records found;
 - [x] Paging the search result;

@@ -41,8 +41,14 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function Search() {
+export default function Search(props) {
     const classes = useStyles();
+
+    let { bookSearchOnChange, inputSearchValue } = props;
+
+    const handleChange = event => {
+        inputSearchValue = event.target.value;
+    }
 
     return (
         <>
@@ -52,15 +58,17 @@ export default function Search() {
                 </div>
                 <InputBase
                     placeholder="Busque livros pelo título, autor ou ISBN"
-                    fullWidth="true"
+                    fullWidth={true}
                     classes={{
                         root: classes.inputRoot,
                         input: classes.inputInput,
                     }}
                     inputProps={{ 'aria-label': 'search' }}
+                    id={inputSearchValue}
+                    onChange={handleChange}
                 />
             </div>
-            <Button variant="contained" color="default" size="large" disableElevation>Buscar</Button>
+            <Button variant="contained" color="default" size="large" disableElevation onClick={() => bookSearchOnChange(inputSearchValue)}>Buscar</Button>
         </>
     );
 }

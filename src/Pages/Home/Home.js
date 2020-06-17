@@ -13,7 +13,17 @@ class Home extends Component {
 
     this.state = {
       items: [],
+      inputSearchValue: '',
     };
+  }
+
+  bookSearchOnChange = input => {
+    const params = `Busca=${input}`
+    ApiService.SearchBooks(params)
+      .then(res => {
+        if (res) this.setState({ items: [...res.items] })
+      })
+      .catch(error => console.log(`Erro na comunicação com a API ao tentar pesquisar os livros - log(${error})`));
   }
 
   details = id => {
@@ -46,7 +56,7 @@ class Home extends Component {
 
     return (
       <Fragment>
-        <Header />
+        <Header bookSearchOnChange={this.bookSearchOnChange} inputSearchValue={this.state.inputSearchValue} />
         <div className="main">
           <BooksTable className="Table" columns={columns} data={this.state.items} details={this.details} />
         </div>

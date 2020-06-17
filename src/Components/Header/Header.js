@@ -19,8 +19,10 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function Header() {
+export default function Header(props) {
     const classes = useStyles();
+
+    const { bookSearchOnChange, inputSearchValue } = props;
 
     return (
         <div className={classes.root}>
@@ -29,7 +31,7 @@ export default function Header() {
                     <Typography variant="h3" className={classes.title}>
                         Supero
                     </Typography>
-                    <Search/>
+                    <Search bookSearchOnChange={bookSearchOnChange} inputSearchValue={inputSearchValue} />
                 </Toolbar>
             </AppBar>
         </div>
