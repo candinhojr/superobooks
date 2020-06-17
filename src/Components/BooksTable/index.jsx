@@ -11,6 +11,7 @@ import TableHead from '@material-ui/core/TableHead'
 import TablePagination from '@material-ui/core/TablePagination'
 import TableRow from '@material-ui/core/TableRow'
 import Typography from '@material-ui/core/Typography'
+import Loading from '../Loading'
 
 const StyledTableCell = withStyles(theme => ({
   head: {
@@ -66,8 +67,6 @@ const CellBooks = ({ cellkey, data, column }) => {
 }
 
 const CellDetails = ({ details, id }) => {
-  if (!details) return null
-
   return (
     <TableCell align="center">
       <Link
@@ -89,9 +88,7 @@ const TitleDetails = ({ details }) => {
   return <StyledTableCell align="center">Ações</StyledTableCell>
 }
 
-export default function BooksTable(props) {
-  const { columns, data, details } = props
-
+const BooksTable = ({ columns, data, details, loadingBooks }) => {
   const classes = useStyles()
   const [page, setPage] = React.useState(0)
   const [rowsPerPage, setRowsPerPage] = React.useState(5)
@@ -108,55 +105,62 @@ export default function BooksTable(props) {
   }
 
   return (
-    <TableContainer component={Paper}>
-      <Table className={classes.table} size="small" aria-label="a dense table">
-        <TableHead>
-          <StyledTableRow>
-            {columns.map(column => (
-              <StyledTableCell key={column.id} align={column.align}>
-                {column.label}
-              </StyledTableCell>
-            ))}
-            <TitleDetails details={details} />
-          </StyledTableRow>
-        </TableHead>
-        <TableBody>
-          {(rowsPerPage > 0 ? data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage) : data).map(data => (
-            <StyledTableRow key={data.id}>
-              {columns.map(column => (
-                <CellBooks key={column.id} data={data} column={column} />
+    <div>
+      {loadingBooks && <Loading />}
+      {!loadingBooks && (
+        <TableContainer component={Paper}>
+          <Table className={classes.table} size="small" aria-label="a dense table">
+            <TableHead>
+              <StyledTableRow>
+                {columns.map(column => (
+                  <StyledTableCell key={column.id} align={column.align}>
+                    {column.label}
+                  </StyledTableCell>
+                ))}
+                <TitleDetails details={details} />
+              </StyledTableRow>
+            </TableHead>
+            <TableBody>
+              {(rowsPerPage > 0 ? data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage) : data).map(data => (
+                <StyledTableRow key={data.id}>
+                  {columns.map(column => (
+                    <CellBooks key={column.id} data={data} column={column} />
+                  ))}
+                  <CellDetails details={details} id={data.id} />
+                </StyledTableRow>
               ))}
-              <CellDetails details={details} id={data.id} />
-            </StyledTableRow>
-          ))}
 
-          {emptyRows > 0 && (
-            <TableRow style={{ height: 10 }}>
-              <TableCell colSpan={5}>
-                {' '}
-                <Typography variant="body2">Não foram encontrados registros</Typography>
-              </TableCell>
-            </TableRow>
-          )}
-        </TableBody>
-        <TableFooter>
-          <StyledTableRow>
-            <TablePagination
-              rowsPerPageOptions={[5, 10, 25, { label: 'All', value: -1 }]}
-              colSpan={5}
-              count={data.length}
-              page={page}
-              SelectProps={{
-                inputProps: { 'aria-label': 'rows per page' },
-                native: true
-              }}
-              onChangePage={handleChangePage}
-              rowsPerPage={rowsPerPage}
-              onChangeRowsPerPage={handleChangeRowsPerPage}
-            />
-          </StyledTableRow>
-        </TableFooter>
-      </Table>
-    </TableContainer>
+              {emptyRows > 0 && (
+                <TableRow style={{ height: 10 }}>
+                  <TableCell colSpan={5}>
+                    {' '}
+                    <Typography variant="body2">Não foram encontrados registros</Typography>
+                  </TableCell>
+                </TableRow>
+              )}
+            </TableBody>
+            <TableFooter>
+              <StyledTableRow>
+                <TablePagination
+                  rowsPerPageOptions={[5, 10, 25, { label: 'All', value: -1 }]}
+                  colSpan={5}
+                  count={data.length}
+                  page={page}
+                  SelectProps={{
+                    inputProps: { 'aria-label': 'rows per page' },
+                    native: true
+                  }}
+                  onChangePage={handleChangePage}
+                  rowsPerPage={rowsPerPage}
+                  onChangeRowsPerPage={handleChangeRowsPerPage}
+                />
+              </StyledTableRow>
+            </TableFooter>
+          </Table>
+        </TableContainer>
+      )}
+    </div>
   )
 }
+
+export default BooksTable
