@@ -16,17 +16,6 @@ const Home = props => {
       .catch(error => console.log(`Erro na comunicação com a API ao tentar pesquisar os livros - log(${error})`))
   }
 
-  const details = id => {
-    ApiService.ListBook(id)
-      .then(res => {
-        if (res) {
-          alert(JSON.stringify(res))
-          setInput('')
-        }
-      })
-      .catch(error => console.log(`Erro na comunicação com a API ao tentar listar o livro - log(${error})`))
-  }
-
   useEffect(() => {
     if (!items) setIsLoading(true)
 
@@ -45,14 +34,15 @@ const Home = props => {
     { id: 'titulo', label: 'Livro' },
     { id: 'autor', label: 'Autor' },
     { id: 'editora', label: 'Editora' },
-    { id: 'ano', label: 'Ano', align: 'right' }
+    { id: 'ano', label: 'Ano', align: 'right' },
+    { id: 'acao', label: 'Ação', align: 'center' }
   ]
 
   return (
     <>
       <Header bookSearchOnChange={bookSearchOnChange} inputSearchValue={inputSearchValue} />
       <div className="main">
-        <BooksTable className="Table" columns={columns} data={items} details={details} loadingBooks={isLoading} />
+        <BooksTable className="Table" columns={columns} data={items} loadingBooks={isLoading} />
       </div>
     </>
   )

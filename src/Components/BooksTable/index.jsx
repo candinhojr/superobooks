@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { makeStyles, withStyles } from '@material-ui/core/styles'
 import Link from '@material-ui/core/Link'
 import Paper from '@material-ui/core/Paper'
@@ -11,6 +11,8 @@ import TableHead from '@material-ui/core/TableHead'
 import TablePagination from '@material-ui/core/TablePagination'
 import TableRow from '@material-ui/core/TableRow'
 import Typography from '@material-ui/core/Typography'
+import ModalDetalhes from '../Modal'
+import ApiService from '../../Service/ApiService'
 import Loading from '../Loading'
 
 const StyledTableCell = withStyles(theme => ({
@@ -41,57 +43,47 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
-const CellBooks = ({ cellkey, data, column }) => {
-  if (column.id === 'titulo') {
-    return (
-      <TableCell key={cellkey}>
-        <Typography variant="body2">{data[column.id]}</Typography>
-        <Typography variant="body2">({data.isbn})</Typography>
-      </TableCell>
-    )
+const CellBooks = ({ cellkey, data, column, details }) => {
+  switch (column.id) {
+    case 'titulo':
+      return (
+        <TableCell key={cellkey}>
+          <Typography variant="body2">{data[column.id]}</Typography>
+          <Typography variant="body2">({data.isbn})</Typography>
+        </TableCell>
+      )
+
+    case 'acao':
+      return (
+        <TableCell align="center">
+          <Link
+            component="button"
+            variant="body2"
+            onClick={() => {
+              details(data.id)
+            }}
+          >
+            Detalhes
+          </Link>
+        </TableCell>
+      )
+
+    default:
+      return (
+        <TableCell key={cellkey} align={column.align}>
+          <Typography variant="body2">{data[column.id]}</Typography>
+        </TableCell>
+      )
   }
-
-  if (column.id === 'ano') {
-    return (
-      <TableCell key={cellkey} align={column.align}>
-        <Typography variant="body2">{data[column.id]}</Typography>
-      </TableCell>
-    )
-  }
-
-  return (
-    <TableCell>
-      <Typography variant="body2">{data[column.id]}</Typography>
-    </TableCell>
-  )
 }
 
-const CellDetails = ({ details, id }) => {
-  return (
-    <TableCell align="center">
-      <Link
-        component="button"
-        variant="body2"
-        onClick={() => {
-          details(id)
-        }}
-      >
-        Detalhes
-      </Link>
-    </TableCell>
-  )
-}
-
-const TitleDetails = ({ details }) => {
-  if (!details) return null
-
-  return <StyledTableCell align="center">Ações</StyledTableCell>
-}
-
-const BooksTable = ({ columns, data, details, loadingBooks }) => {
+const BooksTable = ({ columns, data, loadingBooks }) => {
   const classes = useStyles()
-  const [page, setPage] = React.useState(0)
-  const [rowsPerPage, setRowsPerPage] = React.useState(5)
+  const [page, setPage] = useState(0)
+  const [rowsPerPage, setRowsPerPage] = useState(5)
+  const [livro, setLivro] = useState(null)
+  const [isLoading, setIsLoading] = useState(false)
+  const [showModal, setShowModal] = useState(false)
 
   const emptyRows = rowsPerPage - Math.min(rowsPerPage, data.length - page * rowsPerPage)
 
@@ -102,6 +94,20 @@ const BooksTable = ({ columns, data, details, loadingBooks }) => {
   const handleChangeRowsPerPage = event => {
     setRowsPerPage(parseInt(event.target.value, 10))
     setPage(0)
+  }
+
+  const details = id => {
+    setIsLoading(true)
+    setShowModal(true)
+    ApiService.ListBook(id)
+      .then(res => {
+        setLivro(res)
+        setIsLoading(false)
+      })
+      .catch(error => {
+        setIsLoading(false)
+        console.log(`Erro na comunicação com a API ao tentar listar o livro - log(${error})`)
+      })
   }
 
   return (
@@ -117,18 +123,18 @@ const BooksTable = ({ columns, data, details, loadingBooks }) => {
                     {column.label}
                   </StyledTableCell>
                 ))}
-                <TitleDetails details={details} />
               </StyledTableRow>
             </TableHead>
             <TableBody>
-              {(rowsPerPage > 0 ? data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage) : data).map(data => (
-                <StyledTableRow key={data.id}>
-                  {columns.map(column => (
-                    <CellBooks key={column.id} data={data} column={column} />
-                  ))}
-                  <CellDetails details={details} id={data.id} />
-                </StyledTableRow>
-              ))}
+              {(rowsPerPage > 0 ? data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage) : data).map(
+                livroToRender => (
+                  <StyledTableRow key={livroToRender.id}>
+                    {columns.map(column => (
+                      <CellBooks key={column.id} data={livroToRender} column={column} details={details} />
+                    ))}
+                  </StyledTableRow>
+                )
+              )}
 
               {emptyRows > 0 && (
                 <TableRow style={{ height: 10 }}>
@@ -157,6 +163,19 @@ const BooksTable = ({ columns, data, details, loadingBooks }) => {
               </StyledTableRow>
             </TableFooter>
           </Table>
+          <ModalDetalhes
+            open={showModal}
+            onClose={() => {
+              setShowModal(false)
+              setLivro(null)
+            }}
+            maxWidth={'sm'}
+            loading={isLoading}
+            name={'Modal Detalhes'}
+            title={'Detalhes do Livro'}
+            livro={livro}
+            hasButton
+          />
         </TableContainer>
       )}
     </div>

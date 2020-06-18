@@ -32,7 +32,7 @@ Books have the following attributes:
 - [ ] Present quantities of records found;
 - [x] Paging the search result;
 - [ ] Filter books by period (year);
-- [ ] View details of the book (show all attributes);
+- [x] View details of the book (show all attributes);
 
 ## :round_pushpin: Available Scripts
 
