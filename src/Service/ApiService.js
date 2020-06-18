@@ -16,7 +16,7 @@ const ApiService = {
 
     ListBook: id => consumesApi(`/${id}`, 'GET'),
 
-    SearchBooks: params => consumesApi(`?Busca=${params}`, 'GET'),
+    SearchBooks: params => consumesApi(`?${params}`, 'GET'),
 
     HandleErrors: res => {
         if (!res.ok) throw Error(res.responseText);

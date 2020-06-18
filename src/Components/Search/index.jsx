@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { fade, makeStyles } from '@material-ui/core/styles'
 import SearchIcon from '@material-ui/icons/Search'
 import InputBase from '@material-ui/core/InputBase'
@@ -42,12 +42,12 @@ const useStyles = makeStyles(theme => ({
 }))
 
 export default function Search(props) {
-  const classes = useStyles()
-
   let { bookSearchOnChange, inputSearchValue } = props
+  const classes = useStyles()
+  const [inputValue, setInputValue] = useState(inputSearchValue)
 
   const handleChange = event => {
-    inputSearchValue = event.target.value
+    setInputValue(event.target.value)
   }
 
   return (
@@ -73,7 +73,7 @@ export default function Search(props) {
         color="default"
         size="large"
         disableElevation
-        onClick={() => bookSearchOnChange(inputSearchValue)}
+        onClick={() => bookSearchOnChange(inputValue)}
       >
         Buscar
       </Button>

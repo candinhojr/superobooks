@@ -11,8 +11,15 @@ const Home = props => {
   const [isLoading, setIsLoading] = useState(false)
 
   const bookSearchOnChange = input => {
-    ApiService.SearchBooks(input)
-      .then(res => setItems(res.items))
+    const params = `Busca=${input}`
+    console.log(params)
+
+    ApiService.SearchBooks(params)
+      .then(res => {
+        console.log(res.items)
+
+        setItems(res.items)
+      })
       .catch(error => console.log(`Erro na comunicação com a API ao tentar pesquisar os livros - log(${error})`))
   }
 
