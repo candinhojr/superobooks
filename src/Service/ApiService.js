@@ -12,7 +12,7 @@ const consumesApi = (parameter = '', method = 'GET', body) => {
 
 const ApiService = {
 
-    ListBooks: () => consumesApi(),
+    ListBooks: () => consumesApi(`?MaxResultCount=300`, 'GET'),
 
     ListBook: id => consumesApi(`/${id}`, 'GET'),
 

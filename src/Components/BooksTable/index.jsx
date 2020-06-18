@@ -77,7 +77,7 @@ const CellBooks = ({ cellkey, data, column, details }) => {
   }
 }
 
-const BooksTable = ({ columns, data, loadingBooks }) => {
+const BooksTable = ({ columns, data, loadingBooks, totalCount }) => {
   const classes = useStyles()
   const [page, setPage] = useState(0)
   const [rowsPerPage, setRowsPerPage] = useState(5)
@@ -85,7 +85,7 @@ const BooksTable = ({ columns, data, loadingBooks }) => {
   const [isLoading, setIsLoading] = useState(false)
   const [showModal, setShowModal] = useState(false)
 
-  const emptyRows = rowsPerPage - Math.min(rowsPerPage, data.length - page * rowsPerPage)
+  const emptyRows = rowsPerPage - Math.min(rowsPerPage, totalCount - page * rowsPerPage)
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage)
@@ -139,7 +139,6 @@ const BooksTable = ({ columns, data, loadingBooks }) => {
               {emptyRows > 0 && (
                 <TableRow style={{ height: 10 }}>
                   <TableCell colSpan={5}>
-                    {' '}
                     <Typography variant="body2">Não foram encontrados registros</Typography>
                   </TableCell>
                 </TableRow>
@@ -150,7 +149,7 @@ const BooksTable = ({ columns, data, loadingBooks }) => {
                 <TablePagination
                   rowsPerPageOptions={[5, 10, 25, { label: 'All', value: -1 }]}
                   colSpan={5}
-                  count={data.length}
+                  count={totalCount}
                   page={page}
                   SelectProps={{
                     inputProps: { 'aria-label': 'rows per page' },

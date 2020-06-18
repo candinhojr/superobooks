@@ -5,19 +5,29 @@ import ApiService from '../../Service/ApiService'
 import BooksTable from '../../Components/BooksTable'
 import Header from '../../Components/Header'
 
-const Home = props => {
+const Home = () => {
   const [items, setItems] = useState([])
+  const [totalCount, setTotalCount] = useState(0)
   const [inputSearchValue, setInput] = useState('')
   const [isLoading, setIsLoading] = useState(false)
 
-  const bookSearchOnChange = input => {
-    setInput(input)
-    const params = `Busca=${input}`
+  const bookSearchOnChange = (inputValue, selectedInitialYear, selectedFinalYear) => {
+    setInput(inputValue)
+    const intialYear = `AnoInicial=${selectedInitialYear}`
+    const finalYear = `AnoFinal=${selectedFinalYear}`
+    const input = `Busca=${inputValue}`
+    let params = ''
+
+    if (inputValue) params += input
+    if (selectedInitialYear) params += intialYear
+    if (selectedFinalYear) params += finalYear
+
     console.log(params)
 
     ApiService.SearchBooks(params)
       .then(res => {
         setItems(res.items)
+        setTotalCount(res.totalCount)
       })
       .catch(error => {
         console.log(`Erro na comunicação com a API ao tentar pesquisar os livros - log(${error})`)
@@ -32,6 +42,7 @@ const Home = props => {
         .then(res => {
           setIsLoading(false)
           setItems(res.items)
+          setTotalCount(res.totalCount)
         })
         .catch(error => {
           setIsLoading(false)
@@ -50,9 +61,9 @@ const Home = props => {
 
   return (
     <>
-      <Header bookSearchOnChange={bookSearchOnChange} inputSearchValue={inputSearchValue} totalCount={items.length} />
+      <Header bookSearchOnChange={bookSearchOnChange} inputSearchValue={inputSearchValue} totalCount={totalCount} />
       <div className="main">
-        <BooksTable className="Table" columns={columns} data={items} loadingBooks={isLoading} />
+        <BooksTable className="Table" columns={columns} data={items} loadingBooks={isLoading} totalCount={totalCount} />
       </div>
     </>
   )
