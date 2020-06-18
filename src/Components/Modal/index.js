@@ -15,7 +15,7 @@ import Loading from '../Loading'
 // Sizes available fro te maxWidth to set on the Modal are: "xs", "sm" ,"md", "lg", "xl"
 
 const Modal = props => {
-  const { open, onClose, maxWidth, name, classes, title, livro, loading, hasButton } = props
+  const { open, onClose, maxWidth, name, classes, title, book, loading, hasButton } = props
 
   const id = _.camelCase(name)
 
@@ -47,40 +47,40 @@ const Modal = props => {
           <div className={classes.root}>
             <Grid container spacing={3}>
               <Grid item xs={8}>
-                <Typography variant="subtitle1">{livro?.titulo}</Typography>
-                <Typography variant="body2" color="textSecondary">({livro?.isbn})</Typography>
+                <Typography variant="subtitle1">{book?.titulo}</Typography>
+                <Typography variant="body2" color="textSecondary">({book?.isbn})</Typography>
               </Grid>
               <Grid item xs={4}>
                 <Typography variant="body2" color="textSecondary">Autor:</Typography>
-                <Typography variant="body2">{livro?.autor}</Typography>
+                <Typography variant="body2">{book?.autor}</Typography>
               </Grid>
               <Grid item xs={4}>
                 <Typography variant="body2" color="textSecondary">Editora:</Typography>
-                <Typography variant="body2">{livro?.editora}</Typography>
+                <Typography variant="body2">{book?.editora}</Typography>
               </Grid>
               <Grid item xs={4}>
                 <Typography variant="body2" color="textSecondary">Ano:</Typography>
-                <Typography variant="body2">{livro?.ano}</Typography>
+                <Typography variant="body2">{book?.ano}</Typography>
               </Grid>
               <Grid item xs={4}>
                 <Typography variant="body2" color="textSecondary">Idioma:</Typography>
-                <Typography variant="body2">{livro?.idioma}</Typography>
+                <Typography variant="body2">{book?.idioma}</Typography>
               </Grid>
               <Grid item xs={3}>
                 <Typography variant="body2" color="textSecondary">Peso:</Typography>
-                <Typography variant="body2">{livro?.peso}g</Typography>
+                <Typography variant="body2">{book?.peso}g</Typography>
               </Grid>
               <Grid item xs={3}>
                 <Typography variant="body2" color="textSecondary">Comprimento:</Typography>
-                <Typography variant="body2">{livro?.comprimento}cm</Typography>
+                <Typography variant="body2">{book?.comprimento}cm</Typography>
               </Grid>
               <Grid item xs={3}>
                 <Typography variant="body2" color="textSecondary">Largura:</Typography>
-                <Typography variant="body2">{livro?.largura}cm</Typography>
+                <Typography variant="body2">{book?.largura}cm</Typography>
               </Grid>
               <Grid item xs={3}>
                 <Typography variant="body2" color="textSecondary">Altura:</Typography>
-                <Typography variant="body2">{livro?.altura}cm</Typography>
+                <Typography variant="body2">{book?.altura}cm</Typography>
               </Grid>
             </Grid>
           </div>

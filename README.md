@@ -29,7 +29,7 @@ Books have the following attributes:
 
 - [x] Search books by title, author or ISBN;
 - [x] List books (title, ISBN, author, publisher, year);
-- [ ] Present quantities of records found;
+- [x] Present quantities of records found;
 - [x] Paging the search result;
 - [ ] Filter books by period (year);
 - [x] View details of the book (show all attributes);

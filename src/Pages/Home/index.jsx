@@ -11,31 +11,34 @@ const Home = props => {
   const [isLoading, setIsLoading] = useState(false)
 
   const bookSearchOnChange = input => {
+    setInput(input)
     const params = `Busca=${input}`
     console.log(params)
 
     ApiService.SearchBooks(params)
       .then(res => {
-        console.log(res.items)
-
         setItems(res.items)
       })
-      .catch(error => console.log(`Erro na comunicação com a API ao tentar pesquisar os livros - log(${error})`))
+      .catch(error => {
+        console.log(`Erro na comunicação com a API ao tentar pesquisar os livros - log(${error})`)
+      })
   }
 
   useEffect(() => {
     if (!items) setIsLoading(true)
 
-    ApiService.ListBooks()
-      .then(res => {
-        setIsLoading(false)
-        setItems(res.items)
-      })
-      .catch(error => {
-        setIsLoading(false)
-        console.log(`Erro na comunicação com a API ao tentar listar os livros - log(${error})`)
-      })
-  }, [items])
+    if (!inputSearchValue) {
+      ApiService.ListBooks()
+        .then(res => {
+          setIsLoading(false)
+          setItems(res.items)
+        })
+        .catch(error => {
+          setIsLoading(false)
+          console.log(`Erro na comunicação com a API ao tentar listar os livros - log(${error})`)
+        })
+    }
+  }, [items, inputSearchValue])
 
   const columns = [
     { id: 'titulo', label: 'Livro' },
@@ -47,7 +50,7 @@ const Home = props => {
 
   return (
     <>
-      <Header bookSearchOnChange={bookSearchOnChange} inputSearchValue={inputSearchValue} />
+      <Header bookSearchOnChange={bookSearchOnChange} inputSearchValue={inputSearchValue} totalCount={items.length} />
       <div className="main">
         <BooksTable className="Table" columns={columns} data={items} loadingBooks={isLoading} />
       </div>

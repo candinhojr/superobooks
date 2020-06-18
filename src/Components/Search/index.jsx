@@ -41,8 +41,7 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
-export default function Search(props) {
-  let { bookSearchOnChange, inputSearchValue } = props
+const Search = ({ bookSearchOnChange, inputSearchValue }) => {
   const classes = useStyles()
   const [inputValue, setInputValue] = useState(inputSearchValue)
 
@@ -70,7 +69,7 @@ export default function Search(props) {
       </div>
       <Button
         variant="contained"
-        color="default"
+        color="primary"
         size="large"
         disableElevation
         onClick={() => bookSearchOnChange(inputValue)}
@@ -80,3 +79,5 @@ export default function Search(props) {
     </>
   )
 }
+
+export default Search

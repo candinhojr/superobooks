@@ -11,14 +11,14 @@ import TableHead from '@material-ui/core/TableHead'
 import TablePagination from '@material-ui/core/TablePagination'
 import TableRow from '@material-ui/core/TableRow'
 import Typography from '@material-ui/core/Typography'
-import ModalDetalhes from '../Modal'
+import ModalDetails from '../Modal'
 import ApiService from '../../Service/ApiService'
 import Loading from '../Loading'
 
 const StyledTableCell = withStyles(theme => ({
   head: {
-    backgroundColor: theme.palette.common.black,
-    color: theme.palette.common.white,
+    backgroundColor: theme.palette.info.light,
+    color: '#3b3934',
     height: 50,
     fontWeight: 700
   }
@@ -81,7 +81,7 @@ const BooksTable = ({ columns, data, loadingBooks }) => {
   const classes = useStyles()
   const [page, setPage] = useState(0)
   const [rowsPerPage, setRowsPerPage] = useState(5)
-  const [livro, setLivro] = useState(null)
+  const [book, setBook] = useState(null)
   const [isLoading, setIsLoading] = useState(false)
   const [showModal, setShowModal] = useState(false)
 
@@ -101,7 +101,7 @@ const BooksTable = ({ columns, data, loadingBooks }) => {
     setShowModal(true)
     ApiService.ListBook(id)
       .then(res => {
-        setLivro(res)
+        setBook(res)
         setIsLoading(false)
       })
       .catch(error => {
@@ -127,10 +127,10 @@ const BooksTable = ({ columns, data, loadingBooks }) => {
             </TableHead>
             <TableBody>
               {(rowsPerPage > 0 ? data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage) : data).map(
-                livroToRender => (
-                  <StyledTableRow key={livroToRender.id}>
+                bookToRender => (
+                  <StyledTableRow key={bookToRender.id}>
                     {columns.map(column => (
-                      <CellBooks key={column.id} data={livroToRender} column={column} details={details} />
+                      <CellBooks key={column.id} data={bookToRender} column={column} details={details} />
                     ))}
                   </StyledTableRow>
                 )
@@ -163,17 +163,17 @@ const BooksTable = ({ columns, data, loadingBooks }) => {
               </StyledTableRow>
             </TableFooter>
           </Table>
-          <ModalDetalhes
+          <ModalDetails
             open={showModal}
             onClose={() => {
               setShowModal(false)
-              setLivro(null)
+              setBook(null)
             }}
             maxWidth={'sm'}
             loading={isLoading}
             name={'Modal Detalhes'}
             title={'Detalhes do Livro'}
-            livro={livro}
+            book={book}
             hasButton
           />
         </TableContainer>
