@@ -17,7 +17,7 @@ import Loading from '../Loading'
 
 const StyledTableCell = withStyles(theme => ({
   head: {
-    backgroundColor: theme.palette.info.light,
+    backgroundColor: '#f99b3c',
     color: '#3b3934',
     height: 50,
     fontWeight: 700

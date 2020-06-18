@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { makeStyles } from '@material-ui/core/styles'
+import { fade, makeStyles } from '@material-ui/core/styles'
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
@@ -19,12 +19,12 @@ const useStyles = makeStyles(theme => ({
     }
   },
   appBar: {
-    backgroundColor: theme.palette.info.light,
-    color: '#3b3934'
+    backgroundColor: '#F99B3C',
+    color: '#3B3934'
   },
   filter: {
-    backgroundColor: theme.palette.info.light,
-    color: '#3b3934',
+    backgroundColor: '#F99B3C',
+    color: '#3B3934',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
@@ -32,7 +32,11 @@ const useStyles = makeStyles(theme => ({
     flex: 1
   },
   inputRoot: {
-    color: 'inherit'
+    color: 'inherit',
+    backgroundColor: fade(theme.palette.common.white, 0.15),
+    '&:hover': {
+      backgroundColor: fade(theme.palette.common.white, 0.25)
+    }
   },
   inputInput: {
     padding: theme.spacing(1, 1, 1, 0),
@@ -70,7 +74,7 @@ const Header = props => {
         <AppBar position="static" className={classes.filter}>
           <Toolbar className={classes.filter}>
             <Typography variant="subtitle1">Filtrar por ano de publicação:</Typography>
-            <div>
+            <div className={classes.input}>
               <InputBase
                 placeholder="ano inicial"
                 fullWidth={true}
