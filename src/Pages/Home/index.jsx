@@ -5,6 +5,8 @@ import ApiService from '../../Service/ApiService'
 import BooksTable from '../../Components/BooksTable'
 import Header from '../../Components/Header'
 
+const queryString = require('query-string')
+
 const Home = () => {
   const [items, setItems] = useState([])
   const [totalCount, setTotalCount] = useState(0)
@@ -13,18 +15,16 @@ const Home = () => {
 
   const bookSearchOnChange = (inputValue, selectedInitialYear, selectedFinalYear) => {
     setInput(inputValue)
-    const intialYear = `AnoInicial=${selectedInitialYear}`
-    const finalYear = `AnoFinal=${selectedFinalYear}`
-    const input = `Busca=${inputValue}`
-    let params = ''
 
-    if (inputValue) params += input
-    if (selectedInitialYear) params += intialYear
-    if (selectedFinalYear) params += finalYear
+    const parsed = queryString.parse('')
 
-    console.log(params)
+    inputValue && (parsed.Busca = inputValue)
+    selectedInitialYear && (parsed.AnoInicial = selectedInitialYear)
+    selectedFinalYear && (parsed.AnoFinal = selectedFinalYear)
 
-    ApiService.SearchBooks(params)
+    const params = queryString.stringify(parsed, { sort: false })
+
+    ApiService.SearchBooks(`?${params}`)
       .then(res => {
         setItems(res.items)
         setTotalCount(res.totalCount)

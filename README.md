@@ -4,7 +4,8 @@
 <a href="#mag_right-books-book-search-challenge">Challenge</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
 <a href="#memo-functionalities">Functionalities</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
 <a href="#round_pushpin-available-scripts">Scripts</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp; 
-<a href="#memo-licence">License</a>
+<a href="#memo-licence">License</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp; 
+<a href="#pushpin-to-do"> To Do</a>
 </p>
 
 <p align="center">
@@ -31,7 +32,7 @@ Books have the following attributes:
 - [x] List books (title, ISBN, author, publisher, year);
 - [x] Present quantities of records found;
 - [x] Paging the search result;
-- [ ] Filter books by period (year);
+- [x] Filter books by period (year);
 - [x] View details of the book (show all attributes);
 
 ## :round_pushpin: Available Scripts
@@ -45,3 +46,7 @@ Open http://localhost:3000 to view it in the browser.
 ## :memo: License
 
 This project is under the MIT license. See the file [LICENSE](LICENSE.md) for more details.
+
+## :pushpin: To Do
+
+To add new issues and see other issues, to go [issues](https://github.com/candinhojr/superobooks/issues) and [project](https://github.com/candinhojr/superobooks/projects/1)
