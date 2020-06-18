@@ -12,11 +12,11 @@ const consumesApi = (parameter = '', method = 'GET', body) => {
 
 const ApiService = {
 
-    ListBooks: () => consumesApi(),
+    ListBooks: () => consumesApi(`?MaxResultCount=300`, 'GET'),
 
     ListBook: id => consumesApi(`/${id}`, 'GET'),
 
-    SearchBooks: params => consumesApi(`?${params}`, 'GET'),
+    SearchBooks: params => consumesApi(`${params}`, 'GET'),
 
     HandleErrors: res => {
         if (!res.ok) throw Error(res.responseText);

@@ -41,7 +41,7 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
-const Search = ({ bookSearchOnChange, inputSearchValue }) => {
+const Search = ({ bookSearchOnChange, inputSearchValue, selectedInitialYear, selectedFinalYear }) => {
   const classes = useStyles()
   const [inputValue, setInputValue] = useState(inputSearchValue)
 
@@ -72,7 +72,7 @@ const Search = ({ bookSearchOnChange, inputSearchValue }) => {
         color="primary"
         size="large"
         disableElevation
-        onClick={() => bookSearchOnChange(inputValue)}
+        onClick={() => bookSearchOnChange(inputValue, selectedInitialYear, selectedFinalYear)}
       >
         Buscar
       </Button>
