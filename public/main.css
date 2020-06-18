@@ -1,8 +1,7 @@
 :root {
     /* definindo variáveis para usar em todo o sistema */
-    --title-color: #3B3934;
-    --primary-color: #34cb79;
-    --supero-color: #db7035;
+    --supero-primary-color: #db7035;
+    --supero-second-color: #3b3934;
 }
 
 * {
@@ -22,7 +21,7 @@ body {
 
 a {
     text-decoration: none;
-    color: var(--supero-color);
+    color: var(--supero-primary-color);
     /* alterando o padrão de caixa para considerar as bordas também */
     box-sizing: border-box;
 }
@@ -34,5 +33,4 @@ h4,
 h5,
 h6 {
     font-family: Ubuntu, sans-serif;
-    color: var(--title-color);
 }

@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import Home from './Pages/Home/Home';
-import NotFound from './Pages/NotFound/NotFound';
+import Home from './Pages/Home';
+import NotFound from './Pages/NotFound';
 
 ReactDOM.render(
   <BrowserRouter>
