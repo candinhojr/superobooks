@@ -3,7 +3,7 @@ import './Home.css'
 
 import ApiService from '../../Service/ApiService'
 import BooksTable from '../../Components/BooksTable'
-import Header from '../../Components/Header'
+import SearchHeader from '../../Components/SearchHeader'
 
 const queryString = require('query-string')
 
@@ -37,7 +37,7 @@ const Home = () => {
   useEffect(() => {
     if (!items) setIsLoading(true)
 
-    if (!inputSearchValue) {
+    if (items < 1) {
       ApiService.ListBooks()
         .then(res => {
           setIsLoading(false)
@@ -61,7 +61,11 @@ const Home = () => {
 
   return (
     <>
-      <Header bookSearchOnChange={bookSearchOnChange} inputSearchValue={inputSearchValue} totalCount={totalCount} />
+      <SearchHeader
+        bookSearchOnChange={bookSearchOnChange}
+        inputSearchValue={inputSearchValue}
+        totalCount={totalCount}
+      />
       <div className="main">
         <BooksTable className="Table" columns={columns} data={items} loadingBooks={isLoading} totalCount={totalCount} />
       </div>

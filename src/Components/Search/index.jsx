@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
-import { fade, makeStyles } from '@material-ui/core/styles'
+import { fade, makeStyles, ThemeProvider } from '@material-ui/core/styles'
 import SearchIcon from '@material-ui/icons/Search'
 import InputBase from '@material-ui/core/InputBase'
 import Button from '@material-ui/core/Button'
+import superoTheme from '../../Utils/SuperoTheme'
 
 const useStyles = makeStyles(theme => ({
   search: {
@@ -67,15 +68,17 @@ const Search = ({ bookSearchOnChange, inputSearchValue, selectedInitialYear, sel
           onChange={handleChange}
         />
       </div>
-      <Button
-        variant="contained"
-        color="primary"
-        size="large"
-        disableElevation
-        onClick={() => bookSearchOnChange(inputValue, selectedInitialYear, selectedFinalYear)}
-      >
-        Buscar
-      </Button>
+      <ThemeProvider theme={superoTheme}>
+        <Button
+          variant="contained"
+          color="secondary"
+          size="large"
+          disableElevation
+          onClick={() => bookSearchOnChange(inputValue, selectedInitialYear, selectedFinalYear)}
+        >
+          Buscar
+        </Button>
+      </ThemeProvider>
     </>
   )
 }
