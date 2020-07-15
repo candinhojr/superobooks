@@ -8,19 +8,20 @@ import SearchHeader from '../../Components/SearchHeader'
 const queryString = require('query-string')
 
 const Home = () => {
-  const [items, setItems] = useState([])
-  const [totalCount, setTotalCount] = useState(0)
-  const [inputSearchValue, setInput] = useState('')
+  const [items, setItems] = useState([]) // Array de livros
+  const [totalCount, setTotalCount] = useState(0) // Total de livros
+  //const [page, setPage] = useState(0)
+  //const [rowsPerPage, setRowsPerPage] = useState(5)
   const [isLoading, setIsLoading] = useState(false)
 
   const bookSearchOnChange = (inputValue, selectedInitialYear, selectedFinalYear) => {
-    setInput(inputValue)
-
     const parsed = queryString.parse('')
 
     inputValue && (parsed.Busca = inputValue)
     selectedInitialYear && (parsed.AnoInicial = selectedInitialYear)
     selectedFinalYear && (parsed.AnoFinal = selectedFinalYear)
+    //rowsPerPage && (parsed.MaxResultCount = rowsPerPage)
+    //page && (parsed.SkipCount = page)
 
     const params = queryString.stringify(parsed, { sort: false })
 
@@ -49,7 +50,7 @@ const Home = () => {
           console.log(`Erro na comunicação com a API ao tentar listar os livros - log(${error})`)
         })
     }
-  }, [items, inputSearchValue])
+  }, [items])
 
   const columns = [
     { id: 'titulo', label: 'Livro' },
@@ -61,11 +62,7 @@ const Home = () => {
 
   return (
     <>
-      <SearchHeader
-        bookSearchOnChange={bookSearchOnChange}
-        inputSearchValue={inputSearchValue}
-        totalCount={totalCount}
-      />
+      <SearchHeader bookSearchOnChange={bookSearchOnChange} totalCount={totalCount} />
       <div className="main">
         <BooksTable className="Table" columns={columns} data={items} loadingBooks={isLoading} totalCount={totalCount} />
       </div>

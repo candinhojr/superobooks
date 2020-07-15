@@ -52,7 +52,7 @@ const useStyles = makeStyles(theme => ({
 }))
 
 const SearchHeader = props => {
-  const { bookSearchOnChange, inputSearchValue, totalCount } = props
+  const { bookSearchOnChange, totalCount } = props
   const classes = useStyles()
 
   const [selectedInitialYear, handleInitialYearChange] = useState(new Date())
@@ -68,7 +68,6 @@ const SearchHeader = props => {
             </Typography>
             <Search
               bookSearchOnChange={bookSearchOnChange}
-              inputSearchValue={inputSearchValue}
               selectedInitialYear={selectedInitialYear.getFullYear()}
               selectedFinalYear={selectedFinalYear.getFullYear()}
             />
@@ -84,7 +83,7 @@ const SearchHeader = props => {
                 label="Ano inicial"
                 format="yyyy"
                 value={selectedInitialYear}
-                onChange={date => handleInitialYearChange(date)}
+                onChange={date => date && handleInitialYearChange(date)}
               />
               <KeyboardDatePicker
                 variant="inline"
@@ -92,7 +91,7 @@ const SearchHeader = props => {
                 label="Ano final"
                 format="yyyy"
                 value={selectedFinalYear}
-                onChange={date => handleFinalYearChange(date)}
+                onChange={date => date && handleFinalYearChange(date)}
               />
             </MuiPickersUtilsProvider>
             <Typography variant="subtitle1">{totalCount} resultados encontrados </Typography>

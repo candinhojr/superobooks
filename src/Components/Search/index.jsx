@@ -42,9 +42,9 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
-const Search = ({ bookSearchOnChange, inputSearchValue, selectedInitialYear, selectedFinalYear }) => {
+const Search = ({ bookSearchOnChange, selectedInitialYear, selectedFinalYear }) => {
   const classes = useStyles()
-  const [inputValue, setInputValue] = useState(inputSearchValue)
+  const [inputValue, setInputValue] = useState('')
 
   const handleChange = event => {
     setInputValue(event.target.value)
@@ -64,7 +64,6 @@ const Search = ({ bookSearchOnChange, inputSearchValue, selectedInitialYear, sel
             input: classes.inputInput
           }}
           inputProps={{ 'aria-label': 'search' }}
-          id={inputSearchValue}
           onChange={handleChange}
         />
       </div>
