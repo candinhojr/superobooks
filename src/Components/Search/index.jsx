@@ -63,7 +63,10 @@ const Search = props => {
         color="secondary"
         size="large"
         disableElevation
-        onClick={async () => await getBooks()}
+        onClick={async () => {
+          await getBooks()
+          setInput('')
+        }}
       >
         Buscar
       </Button>

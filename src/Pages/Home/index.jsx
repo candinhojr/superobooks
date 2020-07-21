@@ -51,7 +51,7 @@ const Home = props => {
   }
 
   return (
-    <>
+    <div>
       <Header
         {...props}
         params={params}
@@ -61,20 +61,18 @@ const Home = props => {
         handleParams={handleParams}
         getBooks={getBooks}
       />
-      <div className="main">
-        <BooksTable
-          className="Table"
-          data={items}
-          loadingBooks={isLoading}
-          totalCount={totalCount}
-          skipCount={params.SkipCount}
-          maxResultCount={params.MaxResultCount}
-          sort={params.Sorting}
-          handleParams={handleParams}
-          getBooks={getBooks}
-        />
-      </div>
-    </>
+      <BooksTable
+        className="Table"
+        data={items}
+        loadingBooks={isLoading}
+        totalCount={totalCount}
+        skipCount={params.SkipCount}
+        maxResultCount={params.MaxResultCount}
+        sort={params.Sorting}
+        handleParams={handleParams}
+        getBooks={getBooks}
+      />
+    </div>
   )
 }
 

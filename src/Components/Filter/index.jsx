@@ -20,7 +20,7 @@ const Filter = props => {
   const classes = useStyles()
   const [anoInicial, setAnoInicial] = useState(null)
   const [anoFinal, setAnoFinal] = useState(null)
-  const { handleParams, totalCount } = props
+  const { params, handleParams, totalCount, getBooks } = props
 
   return (
     <AppBar position="static" className={classes.filter}>
