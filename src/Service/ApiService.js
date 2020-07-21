@@ -1,28 +1,13 @@
-const urlBase = 'http://biblioteca.supero.com.br/api/Livros';
+import axios from 'axios'
 
-const consumesApi = (parameter = '', method = 'GET', body) => {
-    return fetch(`${urlBase}${parameter}`, {
-        method,
-        headers: { 'content-type': 'application/json' },
-        body
-    })
-        .then(res => ApiService.HandleErrors(res))
-        .then(res => res.json())
-}
+const api = axios.create({
+    baseURL: 'http://biblioteca.supero.com.br/api/Livros'
+})
 
 const ApiService = {
 
-    ListBooks: () => consumesApi(`?MaxResultCount=300`, 'GET'),
-
-    ListBook: id => consumesApi(`/${id}`, 'GET'),
-
-    SearchBooks: params => consumesApi(`${params}`, 'GET'),
-
-    HandleErrors: res => {
-        if (!res.ok) throw Error(res.responseText);
-
-        return res;
-    }
+    ListBooks: params => api.get(`${params}`),
+    BookById: id => api.get(`/${id}`),
 }
 
-export default ApiService;
+export default ApiService
