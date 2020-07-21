@@ -1,0 +1,4 @@
+{
+  "baseUrl": "http://localhost:3000",
+  "apiBaseUrl": "http://biblioteca.supero.com.br/api"
+}
