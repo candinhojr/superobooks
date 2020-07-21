@@ -47,7 +47,7 @@ const Modal = props => {
           <div className={classes.root}>
             <Grid container spacing={3}>
               <Grid item xs={8}>
-                <Typography variant="subtitle1">{book?.titulo}</Typography>
+                <Typography variant="body2">{book?.titulo}</Typography>
                 <Typography variant="body2" color="textSecondary">({book?.isbn})</Typography>
               </Grid>
               <Grid item xs={4}>

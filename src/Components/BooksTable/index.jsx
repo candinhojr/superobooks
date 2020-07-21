@@ -113,9 +113,9 @@ const BooksTable = ({ data, loadingBooks, totalCount, skipCount, sort, handlePar
   const details = id => {
     setIsLoading(true)
     setShowModal(true)
-    ApiService.ListBook(id)
+    ApiService.BookById(id)
       .then(res => {
-        setBook(res)
+        setBook(res.data)
         setIsLoading(false)
       })
       .catch(error => {
