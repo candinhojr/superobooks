@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { makeStyles, withStyles } from '@material-ui/core/styles'
+import { withStyles } from '@material-ui/core/styles'
 import Link from '@material-ui/core/Link'
 import Paper from '@material-ui/core/Paper'
 import Table from '@material-ui/core/Table'
@@ -14,6 +14,9 @@ import Typography from '@material-ui/core/Typography'
 import ModalDetails from '../Modal'
 import ApiService from '../../Service/ApiService'
 import Loading from '../Loading'
+import TableSortLabel from '@material-ui/core/TableSortLabel'
+
+import * as _ from 'lodash'
 
 const StyledTableCell = withStyles(theme => ({
   head: {
@@ -31,17 +34,6 @@ const StyledTableRow = withStyles(theme => ({
     }
   }
 }))(TableRow)
-
-const useStyles = makeStyles(theme => ({
-  table: {
-    minWidth: 700
-  },
-  root: {
-    '& > * + *': {
-      marginTop: theme.spacing(2)
-    }
-  }
-}))
 
 const CellBooks = ({ cellkey, data, column, details }) => {
   switch (column.id) {
@@ -77,23 +69,46 @@ const CellBooks = ({ cellkey, data, column, details }) => {
   }
 }
 
-const BooksTable = ({ columns, data, loadingBooks, totalCount }) => {
-  const classes = useStyles()
+const BooksTable = ({ data, loadingBooks, totalCount, skipCount, sort, handleParams, getBooks }) => {
   const [page, setPage] = useState(0)
-  const [rowsPerPage, setRowsPerPage] = useState(5)
+  const [order, setOrder] = useState('desc')
+  const [column, setColumn] = useState(sort)
+  const [rowsPerPage, setRowsPerPage] = useState(10)
   const [book, setBook] = useState(null)
   const [isLoading, setIsLoading] = useState(false)
   const [showModal, setShowModal] = useState(false)
 
-  const emptyRows = rowsPerPage - Math.min(rowsPerPage, totalCount - page * rowsPerPage)
+  const columns = [
+    { id: 'titulo', label: 'Livro' },
+    { id: 'autor', label: 'Autor' },
+    { id: 'editora', label: 'Editora' },
+    { id: 'ano', label: 'Ano', align: 'right' }
+  ]
 
   const handleChangePage = (event, newPage) => {
+    if (newPage > page) {
+      handleParams('SkipCount', newPage * rowsPerPage - 1)
+    }
+
+    if (newPage < page) {
+      const skip = skipCount - 10
+      if (skip < 0) {
+        handleParams('SkipCount', 0)
+      } else {
+        handleParams('SkipCount', skip)
+      }
+    }
+
     setPage(newPage)
+    getBooks()
   }
 
   const handleChangeRowsPerPage = event => {
-    setRowsPerPage(parseInt(event.target.value, 10))
     setPage(0)
+    setRowsPerPage(parseInt(event.target.value))
+    handleParams('SkipCount', 0)
+    handleParams('MaxResultCount', event.target.value)
+    getBooks()
   }
 
   const details = id => {
@@ -110,47 +125,64 @@ const BooksTable = ({ columns, data, loadingBooks, totalCount }) => {
       })
   }
 
+  const handleSortColumn = id => {
+    setColumn(id)
+    handleParams('Sorting', id)
+    setPage(0)
+    handleParams('SkipCount', 0)
+    getBooks()
+  }
+
   return (
-    <div>
+    <div
+      style={{
+        display: 'flex',
+        justifyContent: 'center',
+        marginTop: '4vh'
+      }}
+    >
       {loadingBooks && <Loading />}
       {!loadingBooks && (
-        <TableContainer component={Paper}>
-          <Table className={classes.table} size="small" aria-label="a dense table">
+        <TableContainer
+          component={Paper}
+          style={{
+            width: '80%'
+          }}
+        >
+          <Table size="small" aria-label="a dense table">
             <TableHead>
               <StyledTableRow>
-                {columns.map(column => (
-                  <StyledTableCell key={column.id} align={column.align}>
-                    {column.label}
+                {_.map(columns, cell => (
+                  <StyledTableCell key={cell.id} sortDirection={order}>
+                    <TableSortLabel
+                      active={column === cell.id}
+                      direction={order}
+                      onClick={() => handleSortColumn(cell.id)}
+                    >
+                      {cell.label}
+                    </TableSortLabel>
                   </StyledTableCell>
                 ))}
+                <StyledTableCell key={'ação'}>Ação</StyledTableCell>
               </StyledTableRow>
             </TableHead>
             <TableBody>
-              {(rowsPerPage > 0 ? data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage) : data).map(
-                bookToRender => (
-                  <StyledTableRow key={bookToRender.id}>
-                    {columns.map(column => (
-                      <CellBooks key={column.id} data={bookToRender} column={column} details={details} />
-                    ))}
-                  </StyledTableRow>
-                )
-              )}
-
-              {emptyRows > 0 && (
-                <TableRow style={{ height: 10 }}>
-                  <TableCell colSpan={5}>
-                    <Typography variant="body2">Não foram encontrados registros</Typography>
-                  </TableCell>
-                </TableRow>
-              )}
+              {_.map(data, bookToRender => (
+                <StyledTableRow key={Math.random()}>
+                  {_.map([...columns, { id: 'acao', label: 'Ação' }], (column, index) => (
+                    <CellBooks key={index} data={bookToRender} column={column} details={details} />
+                  ))}
+                </StyledTableRow>
+              ))}
             </TableBody>
             <TableFooter>
               <StyledTableRow>
                 <TablePagination
-                  rowsPerPageOptions={[5, 10, 25, { label: 'All', value: -1 }]}
+                  rowsPerPageOptions={[10, 30, 50]}
                   colSpan={5}
                   count={totalCount}
                   page={page}
+                  labelRowsPerPage="Linhas por página"
                   SelectProps={{
                     inputProps: { 'aria-label': 'rows per page' },
                     native: true
@@ -158,6 +190,7 @@ const BooksTable = ({ columns, data, loadingBooks, totalCount }) => {
                   onChangePage={handleChangePage}
                   rowsPerPage={rowsPerPage}
                   onChangeRowsPerPage={handleChangeRowsPerPage}
+                  labelDisplayedRows={({ from, to, count }) => `${from}-${to === -1 ? count : to}  de  ${count}`}
                 />
               </StyledTableRow>
             </TableFooter>

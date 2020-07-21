@@ -1,70 +1,70 @@
 import React, { useEffect, useState } from 'react'
-import './Home.css'
-
-import ApiService from '../../Service/ApiService'
+import queryString from 'query-string'
+import Service from '../../Service/ApiService'
+import Header from '../../Components/Header'
 import BooksTable from '../../Components/BooksTable'
-import SearchHeader from '../../Components/SearchHeader'
 
-const queryString = require('query-string')
-
-const Home = () => {
-  const [items, setItems] = useState([]) // Array de livros
-  const [totalCount, setTotalCount] = useState(0) // Total de livros
-  //const [page, setPage] = useState(0)
-  //const [rowsPerPage, setRowsPerPage] = useState(5)
+const Home = props => {
+  const [items, setItems] = useState([])
+  const [totalCount, setTotalCount] = useState(0)
   const [isLoading, setIsLoading] = useState(false)
+  const [params, setParams] = useState({
+    Busca: null,
+    AnoInicial: null,
+    AnoFinal: null,
+    SkipCount: 0,
+    MaxResultCount: 10,
+    Sorting: 'ano'
+  })
 
-  const bookSearchOnChange = (inputValue, selectedInitialYear, selectedFinalYear) => {
-    const parsed = queryString.parse('')
+  const handleParamsToSend = () => {
+    if (params.Busca?.trim() === '') {
+      params.Busca = null
+    }
 
-    inputValue && (parsed.Busca = inputValue)
-    selectedInitialYear && (parsed.AnoInicial = selectedInitialYear)
-    selectedFinalYear && (parsed.AnoFinal = selectedFinalYear)
-    //rowsPerPage && (parsed.MaxResultCount = rowsPerPage)
-    //page && (parsed.SkipCount = page)
+    const query = queryString.stringify(params)
+    return `?${query}`
+  }
 
-    const params = queryString.stringify(parsed, { sort: false })
-
-    ApiService.SearchBooks(`?${params}`)
+  const getBooks = () => {
+    setIsLoading(true)
+    Service.ListBooks(handleParamsToSend())
       .then(res => {
-        setItems(res.items)
-        setTotalCount(res.totalCount)
+        setItems(res.data.items)
+        setTotalCount(res.data.totalCount)
+        setIsLoading(false)
       })
       .catch(error => {
-        console.log(`Erro na comunicação com a API ao tentar pesquisar os livros - log(${error})`)
+        console.log(error)
+        setIsLoading(false)
       })
   }
 
   useEffect(() => {
-    if (!items) setIsLoading(true)
+    getBooks()
+  }, [])
 
-    if (items < 1) {
-      ApiService.ListBooks()
-        .then(res => {
-          setIsLoading(false)
-          setItems(res.items)
-          setTotalCount(res.totalCount)
-        })
-        .catch(error => {
-          setIsLoading(false)
-          console.log(`Erro na comunicação com a API ao tentar listar os livros - log(${error})`)
-        })
-    }
-  }, [items])
-
-  const columns = [
-    { id: 'titulo', label: 'Livro' },
-    { id: 'autor', label: 'Autor' },
-    { id: 'editora', label: 'Editora' },
-    { id: 'ano', label: 'Ano', align: 'right' },
-    { id: 'acao', label: 'Ação', align: 'center' }
-  ]
+  const handleParams = (name, value) => {
+    const newParams = params
+    newParams[name] = value
+    setParams(newParams)
+  }
 
   return (
     <>
-      <SearchHeader bookSearchOnChange={bookSearchOnChange} totalCount={totalCount} />
+      <Header totalCount={totalCount} />
       <div className="main">
-        <BooksTable className="Table" columns={columns} data={items} loadingBooks={isLoading} totalCount={totalCount} />
+        <BooksTable
+          className="Table"
+          data={items}
+          loadingBooks={isLoading}
+          totalCount={totalCount}
+          skipCount={params.SkipCount}
+          maxResultCount={params.MaxResultCount}
+          sort={params.Sorting}
+          handleParams={handleParams}
+          getBooks={getBooks}
+        />
       </div>
     </>
   )
