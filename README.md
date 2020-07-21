@@ -26,6 +26,8 @@ Books have the following attributes:
 - Weight in g
 - Dimensions in cm (length, width, height)
 
+To collect the information mentioned above, this application consumes the api [biblioteca.supero](http://biblioteca.supero.com.br/swagger/index.html).
+
 ## :memo: Functionalities
 
 - [x] Search books by title, author or ISBN;
@@ -38,10 +40,14 @@ Books have the following attributes:
 ## :round_pushpin: Available Scripts
 
 In the project directory, you can run:
-**`yarn start`**
+**`yarn start`** or **`npm run start`**
 
 Runs the app in the development mode.
 Open http://localhost:3000 to view it in the browser.
+
+Also, you can run:
+**`yarn cy:open`** or **`npm run cy:open`** to open the cypress screen with the test files
+**`yarn cy:run`** or **`npm run cy:run`** to run the tests through the terminal
 
 ## :memo: License
 
