@@ -15,13 +15,12 @@ import ModalDetails from '../Modal'
 import ApiService from '../../Service/ApiService'
 import Loading from '../Loading'
 import TableSortLabel from '@material-ui/core/TableSortLabel'
+import PropTypes from 'prop-types'
 
 import * as _ from 'lodash'
 
 const StyledTableCell = withStyles(theme => ({
   head: {
-    backgroundColor: '#f99b3c',
-    color: '#3b3934',
     height: 50,
     fontWeight: 700
   }
@@ -40,15 +39,16 @@ const CellBooks = ({ cellkey, data, column, details }) => {
     case 'titulo':
       return (
         <TableCell key={cellkey}>
-          <Typography variant="body2">{data[column.id]}</Typography>
-          <Typography variant="body2">({data.isbn})</Typography>
+          <Typography variant="body1">{data[column.id]}</Typography>
+          <Typography variant="body1">({data.isbn})</Typography>
         </TableCell>
       )
 
     case 'acao':
       return (
-        <TableCell align="center">
+        <TableCell>
           <Link
+            color={'secondary'}
             component="button"
             variant="body2"
             onClick={() => {
@@ -62,8 +62,8 @@ const CellBooks = ({ cellkey, data, column, details }) => {
 
     default:
       return (
-        <TableCell key={cellkey} align={column.align}>
-          <Typography variant="body2">{data[column.id]}</Typography>
+        <TableCell key={cellkey}>
+          <Typography variant="body1">{data[column.id]}</Typography>
         </TableCell>
       )
   }
@@ -71,7 +71,7 @@ const CellBooks = ({ cellkey, data, column, details }) => {
 
 const BooksTable = ({ data, loadingBooks, totalCount, skipCount, sort, handleParams, getBooks }) => {
   const [page, setPage] = useState(0)
-  const [order, setOrder] = useState('desc')
+  const [order] = useState('desc')
   const [column, setColumn] = useState(sort)
   const [rowsPerPage, setRowsPerPage] = useState(10)
   const [book, setBook] = useState(null)
@@ -82,7 +82,7 @@ const BooksTable = ({ data, loadingBooks, totalCount, skipCount, sort, handlePar
     { id: 'titulo', label: 'Livro' },
     { id: 'autor', label: 'Autor' },
     { id: 'editora', label: 'Editora' },
-    { id: 'ano', label: 'Ano', align: 'right' }
+    { id: 'ano', label: 'Ano' }
   ]
 
   const handleChangePage = (event, newPage) => {
@@ -114,9 +114,9 @@ const BooksTable = ({ data, loadingBooks, totalCount, skipCount, sort, handlePar
   const details = id => {
     setIsLoading(true)
     setShowModal(true)
-    ApiService.ListBook(id)
+    ApiService.BookById(id)
       .then(res => {
-        setBook(res)
+        setBook(res.data)
         setIsLoading(false)
       })
       .catch(error => {
@@ -212,6 +212,16 @@ const BooksTable = ({ data, loadingBooks, totalCount, skipCount, sort, handlePar
       )}
     </div>
   )
+}
+
+BooksTable.propTypes = {
+  data: PropTypes.array.isRequired,
+  loadingBooks: PropTypes.bool.isRequired,
+  totalCount: PropTypes.number.isRequired,
+  skipCount: PropTypes.number.isRequired,
+  sort: PropTypes.string.isRequired,
+  handleParams: PropTypes.func.isRequired,
+  getBooks: PropTypes.func.isRequired
 }
 
 export default BooksTable

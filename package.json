@@ -20,17 +20,19 @@
     "cy:run": "cypress run"
   },
   "dependencies": {
-    "@date-io/date-fns": "^1.3.13",
-    "@material-ui/core": "^4.10.1",
-    "@material-ui/icons": "^4.9.1",
-    "@material-ui/pickers": "^3.2.10",
-    "axios": "^0.19.2",
-    "lodash": "^4.17.19",
-    "query-string": "^6.13.1",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
-    "react-router-dom": "^5.2.0",
-    "react-scripts": "^3.4.1"
+    "@date-io/date-fns": "1.x",
+    "@material-ui/core": "4.10.1",
+    "@material-ui/icons": "4.9.1",
+    "@material-ui/pickers": "3.2.10",
+    "axios": "0.19.2",
+    "date-fns": "2.15.0",
+    "lodash": "4.17.19",
+    "prop-types": "15.7.2",
+    "query-string": "6.13.1",
+    "react": "16.13.1",
+    "react-dom": "16.13.1",
+    "react-router-dom": "5.2.0",
+    "react-scripts": "3.4.1"
   },
   "browserslist": {
     "production": [
