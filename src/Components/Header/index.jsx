@@ -17,10 +17,6 @@ const useStyles = makeStyles(theme => ({
     [theme.breakpoints.up('sm')]: {
       display: 'block'
     }
-  },
-  appBar: {
-    backgroundColor: '#F99B3C',
-    color: '#3B3934'
   }
 }))
 
@@ -29,9 +25,9 @@ const Header = props => {
 
   return (
     <div className={classes.root}>
-      <AppBar position="static" className={classes.appBar}>
+      <AppBar position="static">
         <Toolbar>
-          <Typography variant="h3" className={classes.title}>
+          <Typography variant="h1" className={classes.title}>
             Supero
           </Typography>
           {window.location.pathname === '/' && <Search {...props} />}

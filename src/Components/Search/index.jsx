@@ -57,7 +57,13 @@ const Search = props => {
           }}
         />
       </div>
-      <Button variant="contained" color="primary" size="large" disableElevation onClick={async () => await getBooks()}>
+      <Button
+        variant="contained"
+        color="secondary"
+        size="large"
+        disableElevation
+        onClick={async () => await getBooks()}
+      >
         Buscar
       </Button>
     </>

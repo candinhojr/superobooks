@@ -8,8 +8,6 @@ import { getYear } from 'date-fns'
 
 const useStyles = makeStyles(theme => ({
   filter: {
-    backgroundColor: '#F99B3C',
-    color: '#3B3934',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
@@ -30,6 +28,7 @@ const Filter = props => {
         <Typography variant="subtitle1">Filtrar por ano de publicação:</Typography>
         <KeyboardDatePicker
           autoOk
+          color={'secondary'}
           variant="inline"
           views={['year']}
           label="Ano inicial"
@@ -42,6 +41,7 @@ const Filter = props => {
         />
         <KeyboardDatePicker
           autoOk
+          color={'secondary'}
           variant="inline"
           views={['year']}
           label="Ano final"

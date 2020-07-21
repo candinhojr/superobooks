@@ -20,8 +20,6 @@ import * as _ from 'lodash'
 
 const StyledTableCell = withStyles(theme => ({
   head: {
-    backgroundColor: '#f99b3c',
-    color: '#3b3934',
     height: 50,
     fontWeight: 700
   }
@@ -40,8 +38,8 @@ const CellBooks = ({ cellkey, data, column, details }) => {
     case 'titulo':
       return (
         <TableCell key={cellkey}>
-          <Typography variant="body2">{data[column.id]}</Typography>
-          <Typography variant="body2">({data.isbn})</Typography>
+          <Typography variant="body1">{data[column.id]}</Typography>
+          <Typography variant="body1">({data.isbn})</Typography>
         </TableCell>
       )
 
@@ -49,6 +47,7 @@ const CellBooks = ({ cellkey, data, column, details }) => {
       return (
         <TableCell align="center">
           <Link
+            color={'secondary'}
             component="button"
             variant="body2"
             onClick={() => {
@@ -63,7 +62,7 @@ const CellBooks = ({ cellkey, data, column, details }) => {
     default:
       return (
         <TableCell key={cellkey} align={column.align}>
-          <Typography variant="body2">{data[column.id]}</Typography>
+          <Typography variant="body1">{data[column.id]}</Typography>
         </TableCell>
       )
   }
