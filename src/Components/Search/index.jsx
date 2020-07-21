@@ -1,7 +1,8 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { fade, makeStyles } from '@material-ui/core/styles'
+import InputAdornment from '@material-ui/core/InputAdornment'
+import TextField from '@material-ui/core/TextField'
 import SearchIcon from '@material-ui/icons/Search'
-import InputBase from '@material-ui/core/InputBase'
 import Button from '@material-ui/core/Button'
 
 const useStyles = makeStyles(theme => ({
@@ -19,61 +20,44 @@ const useStyles = makeStyles(theme => ({
       marginLeft: theme.spacing(3)
     }
   },
-  searchIcon: {
-    padding: theme.spacing(0, 2),
-    height: '100%',
-    position: 'absolute',
-    pointerEvents: 'none',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center'
-  },
-  inputRoot: {
-    color: 'inherit'
-  },
   inputInput: {
     padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
-    paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
-    transition: theme.transitions.create('width'),
     width: '100%',
     height: '1.6em'
   }
 }))
 
-const Search = ({ bookSearchOnChange, inputSearchValue, selectedInitialYear, selectedFinalYear }) => {
+const Search = props => {
   const classes = useStyles()
-  const [inputValue, setInputValue] = useState(inputSearchValue)
+  const [input, setInput] = useState('')
+  const { handleParams, getBooks } = props
 
-  const handleChange = event => {
-    setInputValue(event.target.value)
-  }
+  useEffect(() => {
+    handleParams('Busca', input)
+  }, [input])
 
   return (
     <>
       <div className={classes.search}>
-        <div className={classes.searchIcon}>
-          <SearchIcon />
-        </div>
-        <InputBase
+        <TextField
+          value={input}
           placeholder="Busque livros pelo título, autor ou ISBN"
           fullWidth={true}
           classes={{
-            root: classes.inputRoot,
-            input: classes.inputInput
+            root: classes.inputInput
           }}
           inputProps={{ 'aria-label': 'search' }}
-          id={inputSearchValue}
-          onChange={handleChange}
+          onChange={event => setInput(event.target.value)}
+          InputProps={{
+            startAdornment: (
+              <InputAdornment position="end">
+                <SearchIcon />
+              </InputAdornment>
+            )
+          }}
         />
       </div>
-      <Button
-        variant="contained"
-        color="primary"
-        size="large"
-        disableElevation
-        onClick={() => bookSearchOnChange(inputValue, selectedInitialYear, selectedFinalYear)}
-      >
+      <Button variant="contained" color="primary" size="large" disableElevation onClick={async () => await getBooks()}>
         Buscar
       </Button>
     </>

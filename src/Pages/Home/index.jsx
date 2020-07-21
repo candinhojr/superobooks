@@ -52,7 +52,15 @@ const Home = props => {
 
   return (
     <>
-      <Header totalCount={totalCount} />
+      <Header
+        {...props}
+        params={params}
+        totalCount={totalCount}
+        items={items}
+        isLoading={isLoading}
+        handleParams={handleParams}
+        getBooks={getBooks}
+      />
       <div className="main">
         <BooksTable
           className="Table"

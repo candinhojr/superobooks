@@ -19,10 +19,12 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
+    "@date-io/date-fns": "^2.8.0",
     "@material-ui/core": "^4.10.1",
     "@material-ui/icons": "^4.9.1",
     "@material-ui/pickers": "^3.2.10",
     "axios": "^0.19.2",
+    "date-fns": "^2.15.0",
     "lodash": "^4.17.19",
     "query-string": "^6.13.1",
     "react": "^16.13.1",
