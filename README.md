@@ -26,6 +26,8 @@ Books have the following attributes:
 - Weight in g
 - Dimensions in cm (length, width, height)
 
+To collect the information mentioned above, this application consumes the api [biblioteca.supero](http://biblioteca.supero.com.br/swagger/index.html).
+
 ## :memo: Functionalities
 
 - [x] Search books by title, author or ISBN;
