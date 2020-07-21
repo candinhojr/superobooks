@@ -24,7 +24,7 @@ export default {
       main: '#4DB848',
       dark: '#4DB848',
       contrastText: '#fff'
-    },
+    }
   },
   typography: {
     useNextVariants: true,

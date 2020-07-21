@@ -15,6 +15,7 @@ import ModalDetails from '../Modal'
 import ApiService from '../../Service/ApiService'
 import Loading from '../Loading'
 import TableSortLabel from '@material-ui/core/TableSortLabel'
+import PropTypes from 'prop-types'
 
 import * as _ from 'lodash'
 
@@ -45,7 +46,7 @@ const CellBooks = ({ cellkey, data, column, details }) => {
 
     case 'acao':
       return (
-        <TableCell align="center">
+        <TableCell>
           <Link
             color={'secondary'}
             component="button"
@@ -61,7 +62,7 @@ const CellBooks = ({ cellkey, data, column, details }) => {
 
     default:
       return (
-        <TableCell key={cellkey} align={column.align}>
+        <TableCell key={cellkey}>
           <Typography variant="body1">{data[column.id]}</Typography>
         </TableCell>
       )
@@ -70,7 +71,7 @@ const CellBooks = ({ cellkey, data, column, details }) => {
 
 const BooksTable = ({ data, loadingBooks, totalCount, skipCount, sort, handleParams, getBooks }) => {
   const [page, setPage] = useState(0)
-  const [order, setOrder] = useState('desc')
+  const [order] = useState('desc')
   const [column, setColumn] = useState(sort)
   const [rowsPerPage, setRowsPerPage] = useState(10)
   const [book, setBook] = useState(null)
@@ -81,7 +82,7 @@ const BooksTable = ({ data, loadingBooks, totalCount, skipCount, sort, handlePar
     { id: 'titulo', label: 'Livro' },
     { id: 'autor', label: 'Autor' },
     { id: 'editora', label: 'Editora' },
-    { id: 'ano', label: 'Ano', align: 'right' }
+    { id: 'ano', label: 'Ano' }
   ]
 
   const handleChangePage = (event, newPage) => {
@@ -211,6 +212,16 @@ const BooksTable = ({ data, loadingBooks, totalCount, skipCount, sort, handlePar
       )}
     </div>
   )
+}
+
+BooksTable.propTypes = {
+  data: PropTypes.array.isRequired,
+  loadingBooks: PropTypes.bool.isRequired,
+  totalCount: PropTypes.number.isRequired,
+  skipCount: PropTypes.number.isRequired,
+  sort: PropTypes.string.isRequired,
+  handleParams: PropTypes.func.isRequired,
+  getBooks: PropTypes.func.isRequired
 }
 
 export default BooksTable

@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react'
+import { withStyles } from '@material-ui/core/styles'
 import queryString from 'query-string'
 import Service from '../../Service/ApiService'
 import Header from '../../Components/Header'
 import BooksTable from '../../Components/BooksTable'
+import styles from './Home.style'
 
-const Home = props => {
+const Home = () => {
   const [items, setItems] = useState([])
   const [totalCount, setTotalCount] = useState(0)
   const [isLoading, setIsLoading] = useState(false)
@@ -53,7 +55,6 @@ const Home = props => {
   return (
     <div>
       <Header
-        {...props}
         params={params}
         totalCount={totalCount}
         items={items}
@@ -62,18 +63,17 @@ const Home = props => {
         getBooks={getBooks}
       />
       <BooksTable
-        className="Table"
-        data={items}
-        loadingBooks={isLoading}
-        totalCount={totalCount}
+        data={items} // array
+        loadingBooks={isLoading} //bollean
+        totalCount={totalCount} //number
         skipCount={params.SkipCount}
         maxResultCount={params.MaxResultCount}
-        sort={params.Sorting}
-        handleParams={handleParams}
-        getBooks={getBooks}
+        sort={params.Sorting} //string
+        handleParams={handleParams} //func
+        getBooks={getBooks} //func
       />
     </div>
   )
 }
 
-export default Home
+export default withStyles(styles)(Home)

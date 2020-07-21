@@ -4,7 +4,7 @@ import InputAdornment from '@material-ui/core/InputAdornment'
 import TextField from '@material-ui/core/TextField'
 import SearchIcon from '@material-ui/icons/Search'
 import Button from '@material-ui/core/Button'
-import superoTheme from '../../Utils/SuperoTheme'
+import PropTypes from 'prop-types'
 
 const useStyles = makeStyles(theme => ({
   search: {
@@ -63,15 +63,17 @@ const Search = props => {
         color="secondary"
         size="large"
         disableElevation
-        onClick={async () => {
-          await getBooks()
-          setInput('')
-        }}
+        onClick={async () => await getBooks()}
       >
         Buscar
       </Button>
     </>
   )
+}
+
+Search.propTypes = {
+  handleParams: PropTypes.func.isRequired,
+  getBooks: PropTypes.func.isRequired
 }
 
 export default Search
